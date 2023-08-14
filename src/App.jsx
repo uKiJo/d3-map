@@ -1,9 +1,9 @@
 import "./App.css";
 import GeoPath from "./components/GeoPath";
-import { useGetData } from "./hooks/useGetData";
+import { useMapData } from "./hooks/useMapData";
 
 function App() {
-  const data = useGetData();
+  const data = useMapData();
 
   if (!data) {
     return <pre>Loading...</pre>;

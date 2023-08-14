@@ -3,7 +3,7 @@
 //
 // const url = "https://unpkg.com/world-atlas@2.0.2/countries-50m.json";
 //
-// export const useGetData = () => {
+// export const useMapData = () => {
 //   const [data, setData] = useState(null);
 //
 //   console.log(data);
@@ -26,18 +26,10 @@
 import { json } from "d3-fetch";
 import { useEffect, useState } from "react";
 import { feature, mesh } from "topojson-client";
-// import {
-//   Objects,
-//   Properties,
-//   TopoJSON,
-//   Arc,
-//   Transform,
-// } from "topojson-specification";
-// import { FeatureCollection } from "geojson";
 
 const url = "https://unpkg.com/world-atlas@2.0.2/countries-50m.json";
 
-export const useGetData = () => {
+export const useMapData = () => {
   const [data, setData] = useState(null);
   console.log(data);
   useEffect(() => {
