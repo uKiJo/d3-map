@@ -1,0 +1,12 @@
+.sphere {
+  fill: #fafafa;
+}
+
+.graticules {
+  stroke: #f2f2f2;
+}
+
+.interiors {
+  fill: none;
+  stroke: #3a3a69;
+}
