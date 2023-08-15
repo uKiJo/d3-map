@@ -10,3 +10,15 @@
   fill: none;
   stroke: #3a3a69;
 }
+
+.text {
+  font-size: 6px;
+}
+
+.landing-circle {
+  cursor: pointer;
+}
+
+.landing-circle:hover {
+  fill: red;
+}
