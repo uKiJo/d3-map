@@ -35,8 +35,8 @@ export const useMapData = () => {
   console.log("HOOK");
   const [map, setMap] = useState(null);
   const [data, setData] = useState(null);
-  // console.log(map);
   useEffect(() => {
+    console.log("EFFECT");
     Promise.all([
       csv(dataUrl, (d) => {
         return {
@@ -48,7 +48,7 @@ export const useMapData = () => {
     ]).then(([data, topology]) => {
       if (topology) {
         const { countries } = topology.objects;
-        // // console.log("map", topology);
+        // console.log("map", topology);
         // console.log("data", data);
 
         setMap({
