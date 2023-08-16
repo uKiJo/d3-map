@@ -2,13 +2,14 @@ import { geoPath, geoEquirectangular, geoGraticule } from "d3-geo";
 import { scaleSqrt } from "d3-scale";
 import { max } from "d3-array";
 import "./style.css";
-import { memo, useMemo } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 
 const GeoPath = memo(({ map, data, onMouseOver, onMouseOut }) => {
   console.log("RERENDER!");
+  const circleRef = useRef(null);
   const { countries, interiors } = map;
   const projection = useMemo(() => geoEquirectangular(), []);
-  const path = useMemo(() => geoPath(projection), []);
+  const path = useMemo(() => geoPath(projection), [projection]);
   const graticule = useMemo(() => geoGraticule(), []);
   const radiusValue = (d) => +d.mass;
   const sizeScale = useMemo(
@@ -20,8 +21,8 @@ const GeoPath = memo(({ map, data, onMouseOver, onMouseOut }) => {
   // console.log("countries", countries);
   // console.log("landing data", data);
   return (
-    <svg width={900} height={600}>
-      <g>
+    <svg width={1250} height={625}>
+      <g transform="scale(1.3)">
         <path className="sphere" d={path({ type: "Sphere" })} />
         <path className="graticules" d={path(graticule())} />
         {countries.features.map((feature) => {
@@ -34,19 +35,19 @@ const GeoPath = memo(({ map, data, onMouseOver, onMouseOut }) => {
           d = { ...d, lat, long };
 
           return (
-            <>
-              <circle
-                onMouseOver={(e) => onMouseOver(e, d)}
-                onMouseOut={onMouseOut}
-                className="landing-circle"
-                fill="#28d8da"
-                stroke="#26ACAD"
-                strokeWidth={0.5}
-                r={sizeScale(radiusValue(d))}
-                cx={lat}
-                cy={long}
-              ></circle>
-            </>
+            <circle
+              ref={circleRef}
+              key={d.id}
+              onMouseOver={() => onMouseOver(d)}
+              onMouseOut={onMouseOut}
+              className="landing-circle"
+              fill="#28d8da"
+              stroke="#26ACAD"
+              strokeWidth={0.5}
+              r={sizeScale(radiusValue(d))}
+              cx={lat}
+              cy={long}
+            />
           );
         })}
       </g>

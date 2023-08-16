@@ -1,16 +1,20 @@
 import GeoPath from "./GeoPath";
 import { useMapData } from "../hooks/useMapData";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 
 const Map = () => {
   const AllData = useMapData();
   const { map, data } = AllData;
   const [tooltipData, setTooltipData] = useState(null);
 
-  const handleMouseOver = useCallback((event, d) => {
-    // console.log(event.pageX);
-    // console.log(d);
-    setTooltipData(d);
+  const handleMouseOver = useCallback((d) => {
+    const toolTipPosition = {
+      lat: d.lat,
+      long: d.long,
+      name: d.name,
+    };
+
+    setTooltipData(toolTipPosition);
   }, []);
 
   const handleMouseOut = useCallback(() => {
@@ -21,7 +25,7 @@ const Map = () => {
     return <pre>Loading...</pre>;
   }
   return (
-    <>
+    <div style={{ position: "relative" }}>
       <GeoPath
         map={map}
         data={data}
@@ -39,16 +43,14 @@ const Map = () => {
             padding: "5px",
             borderRadius: "3px",
             fontSize: "12px",
-            left: tooltipData.lat + 10,
-            top: tooltipData.long + 10,
-            // left: 20,
-            // top: 20,
+            left: tooltipData.lat * 1.3 + 10,
+            top: tooltipData.long * 1.3 + 10,
           }}
         >
           {tooltipData.name}
         </div>
       )}
-    </>
+    </div>
   );
 };
 
